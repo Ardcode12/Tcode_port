@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  font-family: 'Lora',serif;
+  scroll-behavior: smooth;
+  background-color:aliceblue;
+  color: #333;
+}
+
+.App {
+  width: 100%;
+  overflow-x: hidden;
+}

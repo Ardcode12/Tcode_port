@@ -1,0 +1,339 @@
+.home-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 5rem 1rem 3rem;
+}
+
+/* Hero Background - Single Image */
+.hero-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.05);
+  animation: subtleZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes subtleZoom {
+  0% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+      rgba(10, 10, 15, 0.92) 0%,
+      rgba(10, 10, 15, 0.85) 50%,
+      rgba(10, 10, 15, 0.9) 100%);
+}
+
+/* Floating Particles */
+.floating-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--color-accent-primary);
+  opacity: 0.3;
+  filter: blur(1px);
+}
+
+/* Legacy Slideshow Support */
+.background-slideshow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.background-slideshow .slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.slide-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+      rgba(10, 10, 15, 0.95) 0%,
+      rgba(10, 10, 15, 0.85) 50%,
+      rgba(10, 10, 15, 0.9) 100%);
+}
+
+/* Main Content */
+.home-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 100%;
+  padding: 0 0.5rem;
+}
+
+/* Pre-title */
+.pre-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent-primary);
+}
+
+.pre-title .line {
+  width: 30px;
+  height: 1px;
+  background: var(--color-accent-primary);
+}
+
+/* Main Title */
+.main-title {
+  font-size: clamp(1.75rem, 7vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.title-line {
+  display: block;
+}
+
+.title-line.gradient {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  min-height: 1.2em;
+}
+
+/* Typewriter */
+.typewriter {
+  display: inline-block;
+}
+
+.cursor {
+  display: inline-block;
+  color: var(--color-accent-primary);
+  animation: blink 1s infinite;
+  margin-left: 2px;
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Benefits List */
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 2rem;
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.benefits-list li {
+  font-size: clamp(0.9rem, 2vw, 1.05rem);
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(0, 212, 255, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid var(--color-accent-primary);
+  font-weight: 500;
+}
+
+/* CTA Container */
+.cta-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 2.5rem;
+}
+
+.secondary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.75rem;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  min-height: 48px;
+}
+
+.secondary-cta:hover {
+  border-color: var(--color-accent-primary);
+  color: var(--color-accent-primary);
+}
+
+/* Stats */
+.stats-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-accent-primary);
+  font-family: var(--font-display);
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.scroll-mouse {
+  width: 22px;
+  height: 34px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 11px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.scroll-wheel {
+  width: 3px;
+  height: 6px;
+  background: var(--color-accent-primary);
+  border-radius: 2px;
+}
+
+.scroll-text {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .home-section {
+    padding: 6rem 2rem 4rem;
+  }
+
+  .pre-title {
+    font-size: 0.8rem;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .pre-title .line {
+    width: 50px;
+  }
+
+  .main-title {
+    margin-bottom: 1.5rem;
+  }
+
+  .subtitle {
+    max-width: 700px;
+    margin-bottom: 1.5rem;
+  }
+
+  .benefits-list {
+    margin-bottom: 2.5rem;
+    gap: 1rem;
+  }
+
+  .benefits-list li {
+    text-align: left;
+    padding: 0.75rem 1rem;
+  }
+
+  .cta-container {
+    flex-direction: row;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .secondary-cta {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    min-height: 52px;
+  }
+
+  .stats-container {
+    gap: 4rem;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .scroll-indicator {
+    bottom: 2.5rem;
+  }
+}

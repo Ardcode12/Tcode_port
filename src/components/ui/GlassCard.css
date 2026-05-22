@@ -1,0 +1,27 @@
+.glass-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(245, 245, 220, 0.15);
+  box-shadow: var(--shadow-glow);
+}
+
+.glass-card-content {
+  position: relative;
+  z-index: 1;
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .glass-card-content {
+    padding: 2rem;
+  }
+}

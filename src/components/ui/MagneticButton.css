@@ -1,0 +1,42 @@
+.magnetic-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.75rem;
+  background: var(--color-accent-primary);
+  color: var(--color-bg-primary);
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.magnetic-button:hover {
+  background: var(--color-accent-secondary);
+  box-shadow: var(--shadow-glow);
+}
+
+.magnetic-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.magnetic-button-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .magnetic-button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+}
