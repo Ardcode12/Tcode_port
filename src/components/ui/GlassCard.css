@@ -1,17 +1,18 @@
 .glass-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
 .glass-card:hover {
-  border-color: rgba(245, 245, 220, 0.15);
-  box-shadow: var(--shadow-glow);
+  border-color: rgba(184, 134, 11, 0.3);
+  box-shadow: 0 8px 30px rgba(184, 134, 11, 0.12);
 }
 
 .glass-card-content {

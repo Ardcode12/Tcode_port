@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { FiMail, FiPhone, FiMapPin, FiSend, FiCheckCircle, FiClock, FiZap } from 'react-icons/fi';
 import GlassCard from '../ui/GlassCard';
 import MagneticButton from '../ui/MagneticButton';
 import '../../styles/components/Contact.css';
@@ -20,7 +21,7 @@ const Contact = () => {
 
     setIsSubmitting(false);
     setSubmitStatus('success');
-    setFormData({ name: '', email: '', message: '' });
+    setFormData({ name: '', email: '', phone: '', message: '' });
 
     setTimeout(() => setSubmitStatus(null), 3000);
   };
@@ -31,33 +32,19 @@ const Contact = () => {
 
   const contactInfo = [
     {
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-          <polyline points="22,6 12,13 2,6" />
-        </svg>
-      ),
+      icon: <FiMail size={22} />,
       label: 'Email',
       value: 'tcode.webs00@gmail.com',
       link: 'mailto:tcode.webs00@gmail.com',
     },
     {
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
-        </svg>
-      ),
+      icon: <FiPhone size={22} />,
       label: 'Phone',
       value: '+91-9080176624',
       link: 'tel:+919080176624',
     },
     {
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-          <circle cx="12" cy="10" r="3" />
-        </svg>
-      ),
+      icon: <FiMapPin size={22} />,
       label: 'Location',
       value: 'Coimbatore, India',
       link: '#',
@@ -73,7 +60,6 @@ const Contact = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          data-aos="fade-up"
         >
           <span className="section-subtitle">Let's Talk</span>
           <h2 className="section-title">
@@ -92,7 +78,7 @@ const Contact = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <GlassCard className="contact-form-card" data-aos="fade-right" data-aos-delay="100">
+            <GlassCard className="contact-form-card">
               <form onSubmit={handleSubmit} className="contact-form">
                 <div className="form-group">
                   <label htmlFor="name">Your Name</label>
@@ -156,9 +142,7 @@ const Contact = () => {
                   ) : (
                     <>
                       <span>Request Free Consultation</span>
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
-                      </svg>
+                      <FiSend size={18} />
                     </>
                   )}
                 </MagneticButton>
@@ -168,8 +152,10 @@ const Contact = () => {
                     className="success-message"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
+                    style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
                   >
-                    ✓ Thank you! We'll contact you within 24 hours.
+                    <FiCheckCircle size={18} style={{ flexShrink: 0 }} />
+                    <span>Thank you! We'll contact you within 24 hours.</span>
                   </motion.div>
                 )}
               </form>
@@ -190,8 +176,6 @@ const Contact = () => {
                   key={index}
                   href={info.link}
                   className="info-card"
-                  data-aos="fade-left"
-                  data-aos-delay={index * 100}
                 >
                   <span className="info-icon">{info.icon}</span>
                   <div className="info-content">
@@ -203,16 +187,17 @@ const Contact = () => {
             </div>
 
             {/* Quick Info */}
-            <div className="quick-info" data-aos="fade-up" data-aos-delay="300">
-              <h3>Office Hours</h3>
+            <div className="quick-info">
+              <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <FiClock size={18} style={{ color: 'var(--color-accent-primary)' }} />
+                <span>Office Hours</span>
+              </h3>
               <p>Monday - Saturday: 9:00 AM - 7:00 PM</p>
               <p>Sunday: By Appointment</p>
 
               <div className="response-time">
                 <span className="time-badge">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '4px' }}>
-                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                  </svg>
+                  <FiZap size={14} style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '6px' }} />
                   We respond within 2 hours during business hours
                 </span>
               </div>

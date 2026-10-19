@@ -13,62 +13,80 @@ const LoadingScreen = ({ onComplete }) => {
           clearInterval(interval);
           setTimeout(() => {
             setIsComplete(true);
-            setTimeout(onComplete, 600);
-          }, 300);
+            setTimeout(onComplete, 500);
+          }, 350);
           return 100;
         }
-        return prev + Math.random() * 20;
+        const remaining = 100 - prev;
+        const step = Math.max(1, Math.min(remaining, Math.floor(Math.random() * 8) + 3));
+        return prev + step;
       });
-    }, 80);
+    }, 45);
 
     return () => clearInterval(interval);
   }, [onComplete]);
+
+  const getStatusText = (val) => {
+    if (val < 30) return 'Initializing digital presence...';
+    if (val < 60) return 'Crafting modern experience...';
+    if (val < 85) return 'Optimizing speed and SEO...';
+    if (val < 100) return 'Finalizing digital solutions...';
+    return 'Ready to grow your business';
+  };
 
   return (
     <AnimatePresence>
       {!isComplete && (
         <motion.div
           className="loading-screen"
-          exit={{ opacity: 0, y: -50 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 1.04 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
+          {/* Ambient light glow behind */}
+          <div className="loading-ambient-glow" />
+
           <div className="loading-content">
+            {/* Logo Container with glowing backdrop */}
             <motion.div
-              className="loading-logo"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
+              className="loading-logo-wrapper"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
             >
-              <div className="logo-circle">
-                <span>T</span>
-              </div>
+              <div className="loading-logo-glow" />
+              <img
+                src="/assets/logo.png"
+                alt="TWS Digital Solutions Logo"
+                className="loading-logo-img"
+              />
             </motion.div>
 
-            <motion.h1
-              className="loading-title"
-              initial={{ opacity: 0, y: 20 }}
+            {/* Brand Title and Tagline */}
+            <motion.div
+              className="loading-brand"
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              T Code
-            </motion.h1>
+              <h1 className="loading-brand-title">TWS Digital Solutions</h1>
+              <span className="loading-brand-tagline">Toward The Success</span>
+            </motion.div>
 
-            <div className="loading-progress-container">
-              <motion.div
-                className="loading-progress-bar"
-                initial={{ width: 0 }}
-                animate={{ width: `${Math.min(progress, 100)}%` }}
-              />
+            {/* Progress Section */}
+            <div className="loading-progress-block">
+              <div className="loading-progress-track">
+                <motion.div
+                  className="loading-progress-fill"
+                  style={{ width: `${Math.min(progress, 100)}%` }}
+                />
+              </div>
+
+              <div className="loading-progress-meta">
+                <span className="loading-status-text">{getStatusText(progress)}</span>
+                <span className="loading-percentage">{Math.min(Math.round(progress), 100)}%</span>
+              </div>
             </div>
-
-            <motion.span
-              className="loading-percentage"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              {Math.min(Math.round(progress), 100)}%
-            </motion.span>
           </div>
         </motion.div>
       )}

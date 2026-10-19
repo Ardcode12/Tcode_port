@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FiArrowRight } from 'react-icons/fi';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -40,7 +41,6 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -82,9 +82,12 @@ const Navbar = () => {
             }}
           >
             <div className="logo-icon">
-              <img src="/assets/logo.png" alt="T Code" />
+              <img src="/assets/logo.png" alt="TWS Digital Solutions" />
             </div>
-            <span className="logo-text">T Code</span>
+            <div className="logo-text-group">
+              <span className="logo-text">TWS Digital Solutions</span>
+              <span className="logo-tagline">Toward The Success</span>
+            </div>
           </a>
 
           {/* Desktop Navigation */}
@@ -174,8 +177,10 @@ const Navbar = () => {
                   e.preventDefault();
                   scrollToSection('contact');
                 }}
+                style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
               >
-                Let's Talk →
+                <span>Let's Talk</span>
+                <FiArrowRight size={16} />
               </a>
             </motion.div>
           </>

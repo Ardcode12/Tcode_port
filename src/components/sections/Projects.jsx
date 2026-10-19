@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { FiCheck, FiCheckCircle, FiTarget, FiTrendingUp, FiX, FiArrowRight, FiArrowUpRight } from 'react-icons/fi';
 import '../../styles/components/Projects.css';
 
 const caseStudies = [
@@ -64,7 +65,6 @@ const Projects = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          data-aos="fade-up"
         >
           <span className="section-subtitle">Real Results</span>
           <h2 className="section-title">
@@ -85,13 +85,13 @@ const Projects = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               onClick={() => setSelectedCase(caseStudy)}
-              data-aos="zoom-in-up"
-              data-aos-delay={index * 150}
             >
               <div className="project-image">
                 <img src={caseStudy.image} alt={caseStudy.title} />
                 <div className="project-overlay">
-                  <span className="view-text">View Case Study</span>
+                  <span className="view-text">
+                    View Case Study <FiArrowUpRight size={16} style={{ marginLeft: '4px', verticalAlign: 'middle' }} />
+                  </span>
                 </div>
               </div>
               <div className="project-info">
@@ -100,7 +100,10 @@ const Projects = () => {
                 <p className="project-description">{caseStudy.client}</p>
                 <div className="project-tech">
                   {caseStudy.results.slice(0, 2).map((result, idx) => (
-                    <span key={idx} className="tech-tag">✓ {result}</span>
+                    <span key={idx} className="tech-tag">
+                      <FiCheck size={13} style={{ marginRight: '4px', verticalAlign: 'middle', display: 'inline-block' }} />
+                      {result}
+                    </span>
                   ))}
                 </div>
               </div>
@@ -129,8 +132,9 @@ const Projects = () => {
               <button
                 className="modal-close"
                 onClick={() => setSelectedCase(null)}
+                aria-label="Close modal"
               >
-                ✕
+                <FiX size={20} />
               </button>
 
               <div className="modal-image">
@@ -143,20 +147,32 @@ const Projects = () => {
                 <p className="modal-client">Client: {selectedCase.client}</p>
 
                 <div className="case-section">
-                  <h4>🎯 The Challenge</h4>
+                  <h4>
+                    <FiTarget size={18} style={{ marginRight: '8px', verticalAlign: 'middle', color: 'var(--color-accent-primary)' }} />
+                    The Challenge
+                  </h4>
                   <p>{selectedCase.problem}</p>
                 </div>
 
                 <div className="case-section">
-                  <h4>💡 Our Solution</h4>
+                  <h4>
+                    <FiCheckCircle size={18} style={{ marginRight: '8px', verticalAlign: 'middle', color: 'var(--color-accent-primary)' }} />
+                    Our Solution
+                  </h4>
                   <p>{selectedCase.solution}</p>
                 </div>
 
                 <div className="case-section">
-                  <h4>📊 Results Achieved ({selectedCase.duration})</h4>
+                  <h4>
+                    <FiTrendingUp size={18} style={{ marginRight: '8px', verticalAlign: 'middle', color: 'var(--color-accent-primary)' }} />
+                    Results Achieved ({selectedCase.duration})
+                  </h4>
                   <ul className="results-list">
                     {selectedCase.results.map((result, index) => (
-                      <li key={index}>✓ {result}</li>
+                      <li key={index} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+                        <FiCheck size={16} style={{ color: 'var(--color-accent-primary)', flexShrink: 0, marginTop: '3px' }} />
+                        <span>{result}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -175,7 +191,8 @@ const Projects = () => {
                       }
                     }}
                   >
-                    Get Similar Results →
+                    <span>Get Similar Results</span>
+                    <FiArrowRight size={16} style={{ marginLeft: '6px' }} />
                   </button>
                   <button
                     className="modal-btn secondary"

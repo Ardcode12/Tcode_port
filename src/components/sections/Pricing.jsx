@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import { FiCheck, FiArrowRight, FiPackage, FiZap, FiAward, FiStar } from 'react-icons/fi';
 import GlassCard from '../ui/GlassCard';
 import MagneticButton from '../ui/MagneticButton';
 import '../../styles/components/Pricing.css';
@@ -7,6 +8,7 @@ import '../../styles/components/Pricing.css';
 const pricingPlans = [
   {
     name: 'Starter',
+    icon: <FiPackage size={22} />,
     price: '₹2.5k - 5k',
     period: '',
     description: 'Perfect for local businesses & startups',
@@ -25,6 +27,7 @@ const pricingPlans = [
   },
   {
     name: 'Growth',
+    icon: <FiZap size={22} />,
     price: '₹9k - 12k',
     period: '',
     description: 'For businesses expanding their digital presence',
@@ -43,6 +46,7 @@ const pricingPlans = [
   },
   {
     name: 'Pro',
+    icon: <FiAward size={22} />,
     price: '₹18k - 25k',
     period: '',
     description: 'Enterprise-level digital transformation',
@@ -84,7 +88,6 @@ const Pricing = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          data-aos="fade-up"
         >
           <span className="section-subtitle">Transparent Pricing</span>
           <h2 className="section-title">
@@ -104,18 +107,20 @@ const Pricing = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.15 }}
-              data-aos="zoom-in"
-              data-aos-delay={index * 150}
             >
               <GlassCard className={`pricing-card ${plan.popular ? 'popular' : ''}`}>
                 {plan.popular && (
                   <div className="popular-badge">
+                    <FiStar size={13} style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '5px' }} />
                     <span>Most Popular</span>
                   </div>
                 )}
 
                 <div className="pricing-header">
-                  <h3 className="plan-name">{plan.name}</h3>
+                  <div className="plan-name-row" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
+                    <span className="plan-icon" style={{ color: 'var(--color-accent-primary)', display: 'flex', alignItems: 'center' }}>{plan.icon}</span>
+                    <h3 className="plan-name" style={{ margin: 0 }}>{plan.name}</h3>
+                  </div>
                   <p className="plan-description">{plan.description}</p>
                   <div className="price-wrapper">
                     <span className="price">{plan.price}</span>
@@ -132,7 +137,9 @@ const Pricing = () => {
                       animate={isInView ? { opacity: 1, x: 0 } : {}}
                       transition={{ delay: 0.3 + index * 0.1 + i * 0.05 }}
                     >
-                      <span className="check-icon">✓</span>
+                      <span className="check-icon">
+                        <FiCheck size={12} strokeWidth={3} />
+                      </span>
                       <span>{feature}</span>
                     </motion.div>
                   ))}
@@ -143,9 +150,7 @@ const Pricing = () => {
                   onClick={() => scrollToSection('contact')}
                 >
                   <span>Get Started</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
+                  <FiArrowRight size={16} />
                 </MagneticButton>
               </GlassCard>
             </motion.div>

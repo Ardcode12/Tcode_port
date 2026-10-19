@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
-
-// AOS Library
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 
 // UI Components
 import LoadingScreen from './components/ui/LoadingScreen';
@@ -26,24 +23,10 @@ import Contact from './components/sections/Contact';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
-  // Initialize AOS
+  // Set light theme permanently
   useEffect(() => {
-    AOS.init({
-      duration: 800,
-      easing: 'ease-out-cubic',
-      once: true,
-      offset: 100,
-      delay: 0,
-      mirror: false,
-    });
+    document.documentElement.setAttribute('data-theme', 'light');
   }, []);
-
-  // Refresh AOS when loading completes
-  useEffect(() => {
-    if (!isLoading) {
-      AOS.refresh();
-    }
-  }, [isLoading]);
 
   useEffect(() => {
     const preloadImages = [
@@ -108,15 +91,24 @@ function App() {
               <div className="footer-content">
                 <div className="footer-main">
                   <div className="footer-brand">
-                    <h3>T Code Digital</h3>
-                    <p className="footer-tagline">Your Growth Partner in the Digital World</p>
+                    <h3>TWS Digital Solutions</h3>
+                    <p className="footer-tagline">Toward The Success</p>
                   </div>
 
                   <div className="footer-contact">
                     <h4>Get In Touch</h4>
-                    <p>tcode.webs00@gmail.com</p>
-                    <p>+91-9080176624</p>
-                    <p>Coimbatore, Tamil Nadu, India</p>
+                    <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <FiMail size={16} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} />
+                      <a href="mailto:tcode.webs00@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>tcode.webs00@gmail.com</a>
+                    </p>
+                    <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <FiPhone size={16} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} />
+                      <a href="tel:+919080176624" style={{ color: 'inherit', textDecoration: 'none' }}>+91-9080176624</a>
+                    </p>
+                    <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <FiMapPin size={16} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} />
+                      <span>Coimbatore, Tamil Nadu, India</span>
+                    </p>
                   </div>
 
                   <div className="footer-links">
@@ -129,7 +121,7 @@ function App() {
                 </div>
 
                 <div className="footer-bottom">
-                  <p>© 2026 T Code Digital. All rights reserved.</p>
+                  <p>© 2026 TWS Digital Solutions. All rights reserved.</p>
                   <p>Transforming Businesses Through Digital Marketing | Web Development Company in Coimbatore</p>
                 </div>
               </div>

@@ -2,7 +2,7 @@
   padding: 6rem 0;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 20, 40, 0.3) 100%);
+  background: var(--color-bg-secondary);
 }
 
 .reasons-grid {
@@ -28,7 +28,7 @@
 
 .reason-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(0, 212, 255, 0.15);
+  box-shadow: 0 15px 40px rgba(184, 134, 11, 0.15);
 }
 
 .reason-icon {
@@ -39,10 +39,10 @@
   height: 80px;
   margin-bottom: 1.5rem;
   color: var(--color-accent-primary);
-  background: rgba(0, 212, 255, 0.1);
+  background: rgba(184, 134, 11, 0.1);
   border-radius: 50%;
-  border: 2px solid rgba(0, 212, 255, 0.3);
-  filter: drop-shadow(0 4px 12px rgba(0, 212, 255, 0.3));
+  border: 2px solid rgba(184, 134, 11, 0.3);
+  filter: drop-shadow(0 4px 12px rgba(184, 134, 11, 0.2));
 }
 
 .reason-icon svg {
@@ -54,15 +54,12 @@
   font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #fff, rgba(255, 255, 255, 0.8));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-text-primary);
 }
 
 .reason-description {
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--color-text-secondary);
   line-height: 1.7;
   text-align: center;
 }
@@ -76,9 +73,10 @@
   gap: 2rem;
   margin-top: 4rem;
   padding: 2rem;
-  background: rgba(0, 212, 255, 0.05);
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 12px;
-  border: 1px solid rgba(0, 212, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
 .trust-item {
@@ -93,17 +91,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #00d4ff, #0099ff);
+  background: linear-gradient(135deg, #b8860b, #d4af37);
   border-radius: 50%;
   font-size: 0.85rem;
   font-weight: bold;
-  color: #000;
+  color: #fff;
 }
 
 .trust-text {
   font-size: 1rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-primary);
 }
 
 /* Responsive */
