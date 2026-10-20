@@ -111,6 +111,7 @@ const Home = () => {
           style={{ backgroundImage: 'url(/assets/web1.png)' }}
         />
         <div className="hero-bg-overlay" />
+        <div className="hero-ambient-light" />
         <FloatingParticles />
       </div>
 

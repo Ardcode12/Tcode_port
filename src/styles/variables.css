@@ -73,26 +73,26 @@
 
 /* Light Theme */
 [data-theme="light"] {
-  --color-bg-primary: #f5f4f0;
-  --color-bg-secondary: #eae8e3;
-  --color-bg-tertiary: #dedad2;
-  --color-bg-card: #eeece7;
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #fbfaf8;
+  --color-bg-tertiary: #f5f3ec;
+  --color-bg-card: #ffffff;
 
   --color-accent-primary: #b8860b;
   --color-accent-secondary: #996b00;
   --color-accent-tertiary: #0077aa;
   --color-accent-glow: rgba(184, 134, 11, 0.25);
 
-  --color-text-primary: #1a1a1a;
-  --color-text-secondary: #4a4a4a;
-  --color-text-muted: #888888;
+  --color-text-primary: #121217;
+  --color-text-secondary: #3e3e46;
+  --color-text-muted: #727280;
 
-  --gradient-primary: linear-gradient(135deg, #f0ede6 0%, #e8e4db 50%, #dedad2 100%);
+  --gradient-primary: linear-gradient(135deg, #ffffff 0%, #fbf9f4 50%, #f4f1ea 100%);
   --gradient-accent: linear-gradient(135deg, #b8860b 0%, #d4af37 100%);
-  --gradient-glow: radial-gradient(circle, rgba(184, 134, 11, 0.08) 0%, transparent 70%);
-  --gradient-card: linear-gradient(145deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.01) 100%);
+  --gradient-glow: radial-gradient(circle, rgba(184, 134, 11, 0.12) 0%, transparent 70%);
+  --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
 
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
   --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
   --shadow-glow: 0 0 30px rgba(184, 134, 11, 0.12);

@@ -107,15 +107,31 @@ const ModelLoader = () => (
 );
 
 // Laptop 3D Model Component with single-run opening animation & subsequent turntable rotation
-const LaptopModel = ({ config, isInView = true }) => {
+const LaptopModel = ({ config, isVisible = false }) => {
   const groupRef = useRef();
   const { scene, animations } = useGLTF('/assets/asus_rog_flow_x16.glb');
   const { actions, names, mixer } = useAnimations(animations, groupRef);
+  const [hasStarted, setHasStarted] = useState(false);
   const [isAnimationComplete, setIsAnimationComplete] = useState(!config.playModelAnimation);
 
-  // Play the laptop screen opening animation once when scrolled into view
+  // Keep screen closed in initial state
   useEffect(() => {
-    if (!isInView) return;
+    if (!actions || !names || names.length === 0) return;
+    const actionName = names[0];
+    const action = actions[actionName];
+    if (!action) return;
+
+    if (!hasStarted) {
+      action.reset();
+      action.time = 0;
+      action.paused = true;
+      action.play();
+    }
+  }, [actions, names, hasStarted]);
+
+  // When isVisible becomes true (user scrolls into About section), play the opening animation once
+  useEffect(() => {
+    if (!isVisible || hasStarted) return;
     if (!actions || !names || names.length === 0) {
       setIsAnimationComplete(true);
       return;
@@ -128,8 +144,11 @@ const LaptopModel = ({ config, isInView = true }) => {
       return;
     }
 
+    setHasStarted(true);
+
     if (config.playModelAnimation) {
       action.reset();
+      action.paused = false;
       // Play only ONCE and keep the laptop screen in the opened state
       action.setLoop(THREE.LoopOnce, 1);
       action.clampWhenFinished = true;
@@ -156,11 +175,11 @@ const LaptopModel = ({ config, isInView = true }) => {
     } else {
       setIsAnimationComplete(true);
     }
-  }, [isInView, actions, names, mixer, config.playModelAnimation, config.modelAnimationSpeed]);
+  }, [isVisible, hasStarted, actions, names, mixer, config.playModelAnimation, config.modelAnimationSpeed]);
 
   // Turntable auto-rotation: starts once the opening animation has finished playing
   useFrame((state, delta) => {
-    if (groupRef.current && config.autoRotate) {
+    if (groupRef.current && config.autoRotate && hasStarted) {
       if (!config.rotateAfterAnimation || isAnimationComplete) {
         groupRef.current.rotation.y += delta * config.rotationSpeed;
       }
@@ -196,7 +215,14 @@ const LaptopModel = ({ config, isInView = true }) => {
 };
 
 // Interactive 3D Canvas Showcase with Mobile vs Desktop Settings
-const LaptopCanvas = ({ isInView = true }) => {
+const LaptopCanvas = () => {
+  const containerRef = useRef(null);
+  // Detects when the 3D model container has truly entered the viewport
+  const isVisible = useInView(containerRef, {
+    once: true,
+    amount: 0.3,
+  });
+
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window !== 'undefined') {
       return window.innerWidth <= 768;
@@ -216,7 +242,7 @@ const LaptopCanvas = ({ isInView = true }) => {
   const config = isMobile ? MOBILE_LAPTOP_SETTINGS : LAPTOP_SETTINGS;
 
   return (
-    <div className="laptop-3d-container">
+    <div className="laptop-3d-container" ref={containerRef}>
       {/* Background ambient gold lighting glow */}
       <div className="laptop-3d-glow" />
 
@@ -233,7 +259,7 @@ const LaptopCanvas = ({ isInView = true }) => {
         <pointLight position={[0, 4, 3]} intensity={1.8} color={config.accentLightColor} />
 
         <Suspense fallback={<ModelLoader />}>
-          <LaptopModel config={config} isInView={isInView} />
+          <LaptopModel config={config} isVisible={isVisible} />
           <ContactShadows
             position={[0, -1.2, 0]}
             opacity={0.4}
@@ -350,7 +376,7 @@ const About = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <LaptopCanvas isInView={isInView} />
+            <LaptopCanvas />
           </motion.div>
         </div>
       </div>

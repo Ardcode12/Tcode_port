@@ -82,7 +82,7 @@ const Navbar = () => {
             }}
           >
             <div className="logo-icon">
-              <img src="/assets/logo.png" alt="TWS Digital Solutions" />
+              <img src="/assets/logo_nav.png" alt="TWS Digital Solutions" />
             </div>
             <div className="logo-text-group">
               <span className="logo-text">TWS Digital Solutions</span>
