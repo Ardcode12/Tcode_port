@@ -128,36 +128,8 @@
 .laptop-canvas {
   width: 100% !important;
   height: 100% !important;
-  touch-action: none;
-  cursor: grab;
   position: relative;
   z-index: 1;
-}
-
-.laptop-canvas:active {
-  cursor: grabbing;
-}
-
-/* Interaction Badge */
-.laptop-interaction-badge {
-  position: absolute;
-  bottom: 0.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: var(--radius-full);
-  font-size: 0.72rem;
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  pointer-events: none;
-  z-index: 5;
-  backdrop-filter: blur(8px);
 }
 
 /* 3D Loader */

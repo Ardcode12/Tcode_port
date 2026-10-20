@@ -45,6 +45,12 @@
   background: linear-gradient(150deg, #101019 0%, #171726 50%, #12121f 100%) !important;
   border: 2px solid #d4af37 !important;
   box-shadow: 0 16px 50px rgba(0, 0, 0, 0.35), 0 0 30px rgba(212, 175, 55, 0.25);
+  overflow: visible !important;
+}
+
+.pricing-card.popular .glass-card-content {
+  padding-top: 2.3rem;
+  overflow: visible;
 }
 
 .pricing-card.popular:hover {
@@ -75,17 +81,24 @@
 
 .popular-badge {
   position: absolute;
-  top: -12px;
-  right: 20px;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
   background: linear-gradient(135deg, #b8860b, #d4af37);
-  padding: 0.4rem 1.2rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 0.35rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.06em;
   color: #fff;
   box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  z-index: 10;
 }
 
 .pricing-header {
@@ -247,9 +260,15 @@
     font-size: 2rem;
   }
 
+  .pricing-card.popular .glass-card-content {
+    padding-top: 2.3rem;
+  }
+
   .popular-badge {
-    top: -10px;
-    right: 50%;
-    transform: translateX(50%);
+    top: -14px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    white-space: nowrap;
   }
 }

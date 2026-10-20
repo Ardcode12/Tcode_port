@@ -3,29 +3,19 @@ import { motion, useInView } from 'framer-motion';
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, useAnimations, OrbitControls, Float, ContactShadows, Center, Html } from '@react-three/drei';
-import { FiUsers, FiGlobe, FiAward, FiHeadphones, FiMove } from 'react-icons/fi';
+import { FiUsers, FiGlobe, FiAward, FiHeadphones } from 'react-icons/fi';
 import GlassCard from '../ui/GlassCard';
 import '../../styles/components/About.css';
 
 /* =========================================================================
-   3D LAPTOP MODEL CONFIGURATION SETTINGS
-   All settings are kept right here in code for easy adjustments:
-   - scale: Overall size of the laptop (0.8 - 1.2 is ideal)
-   - position: [X (left/right), Y (up/down), Z (near/far)]
-   - rotation: [X (tilt), Y (facing angle), Z (roll)] in radians
-   - autoRotate: Whether the laptop rotates continuously
-   - rotationSpeed: Speed of continuous turntable rotation
-   - rotateAfterAnimation: If true, starts continuous rotation after opening animation finishes
-   - playModelAnimation: Play the laptop screen opening animation
-   - modelAnimationSpeed: Speed of the screen opening animation
-   - enableFloat: Gentle floating/hovering effect
-   - cameraPosition & cameraFov: View angle and zoom distance
+   DESKTOP 3D LAPTOP MODEL SETTINGS (> 768px)
+   Customize laptop size, position, rotation, camera, and effects for Desktop:
    ========================================================================= */
 export const LAPTOP_SETTINGS = {
-  // Size / Scale of the laptop model (adjusted for comfortable fitting without clipping)
+  // Size / Scale of the laptop model on Desktop
   scale: 0.50,
 
-  // Position in 3D space [X, Y, Z]
+  // Position in 3D space [X (left/right), Y (up/down), Z (near/far)]
   position: [0, -0.22, 0],
 
   // Initial angle [X (tilt up/down), Y (facing angle), Z (roll)]
@@ -46,11 +36,11 @@ export const LAPTOP_SETTINGS = {
   floatIntensity: 0.35,         // Amplitude of vertical float
   rotationIntensity: 0.12,      // Subtle tilt while floating
 
-  // Interactive mouse/touch dragging
-  enableOrbitControls: true,
-  enableZoom: false,            // Set to true to allow scroll zooming
+  // Drag interaction (disabled as requested)
+  enableOrbitControls: false,
+  enableZoom: false,
 
-  // Camera settings - positioned so the model window is spacious and never clipped
+  // Camera settings
   cameraPosition: [0, 0.7, 5.5],
   cameraFov: 40,
 
@@ -58,6 +48,49 @@ export const LAPTOP_SETTINGS = {
   ambientIntensity: 1.8,
   directionalIntensity: 2.8,
   accentLightColor: '#d4af37',   // Gold accent reflection
+};
+
+/* =========================================================================
+   MOBILE 3D LAPTOP MODEL SETTINGS (<= 768px)
+   Customize laptop size, position, rotation, and camera specifically for Mobile:
+   ========================================================================= */
+export const MOBILE_LAPTOP_SETTINGS = {
+  // Size / Scale of the laptop model on Mobile screens
+  scale: 0.42,
+
+  // Position in 3D space [X, Y, Z] on Mobile
+  position: [0, -0.10, 0],
+
+  // Initial angle [X (tilt up/down), Y (facing angle), Z (roll)]
+  rotation: [0.14, -0.35, 0],
+
+  // Auto-rotation (Turntable rotation)
+  autoRotate: true,
+  rotationSpeed: 0.5,           // Rotation speed on mobile
+  rotateAfterAnimation: true,   // Starts rotating once the opening animation finishes
+
+  // Built-in Laptop Opening Animation
+  playModelAnimation: true,     // Opens the laptop lid
+  modelAnimationSpeed: 0.85,    // Speed of opening animation
+
+  // Floating hover effect on mobile
+  enableFloat: true,
+  floatSpeed: 1.5,
+  floatIntensity: 0.25,
+  rotationIntensity: 0.08,
+
+  // Drag interaction (disabled on mobile to avoid trapping page scroll gestures)
+  enableOrbitControls: false,
+  enableZoom: false,
+
+  // Camera settings optimized for portrait mobile screens
+  cameraPosition: [0, 0.65, 5.8],
+  cameraFov: 44,
+
+  // Lighting intensities
+  ambientIntensity: 1.8,
+  directionalIntensity: 2.8,
+  accentLightColor: '#d4af37',
 };
 
 // Preload the GLTF laptop model for instant rendering
@@ -74,7 +107,7 @@ const ModelLoader = () => (
 );
 
 // Laptop 3D Model Component with single-run opening animation & subsequent turntable rotation
-const LaptopModel = ({ config = LAPTOP_SETTINGS, isInView = true }) => {
+const LaptopModel = ({ config, isInView = true }) => {
   const groupRef = useRef();
   const { scene, animations } = useGLTF('/assets/asus_rog_flow_x16.glb');
   const { actions, names, mixer } = useAnimations(animations, groupRef);
@@ -162,22 +195,32 @@ const LaptopModel = ({ config = LAPTOP_SETTINGS, isInView = true }) => {
   return modelNode;
 };
 
-// Interactive 3D Canvas Showcase
+// Interactive 3D Canvas Showcase with Mobile vs Desktop Settings
 const LaptopCanvas = ({ isInView = true }) => {
-  const config = LAPTOP_SETTINGS;
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth <= 768;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Select mobile or desktop configuration dynamically
+  const config = isMobile ? MOBILE_LAPTOP_SETTINGS : LAPTOP_SETTINGS;
 
   return (
     <div className="laptop-3d-container">
       {/* Background ambient gold lighting glow */}
       <div className="laptop-3d-glow" />
 
-      {/* Drag interaction hint */}
-      <div className="laptop-interaction-badge">
-        <FiMove size={13} />
-        <span>Drag to rotate</span>
-      </div>
-
-      {/* 3D Canvas without boundary card */}
+      {/* 3D Canvas */}
       <Canvas
         camera={{ position: config.cameraPosition, fov: config.cameraFov }}
         className="laptop-canvas"

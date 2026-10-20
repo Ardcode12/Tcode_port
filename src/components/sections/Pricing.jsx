@@ -111,7 +111,7 @@ const Pricing = () => {
               <GlassCard className={`pricing-card ${plan.popular ? 'popular' : ''}`}>
                 {plan.popular && (
                   <div className="popular-badge">
-                    <FiStar size={13} style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '5px' }} />
+                    <FiStar size={12} />
                     <span>Most Popular</span>
                   </div>
                 )}
