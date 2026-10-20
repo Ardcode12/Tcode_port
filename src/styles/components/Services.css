@@ -59,59 +59,146 @@
 /* Technologies */
 .tech-section {
   text-align: center;
+  margin-top: 4.5rem;
+  padding-top: 4rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.tech-header {
+  max-width: 680px;
+  margin: 0 auto 2.25rem;
 }
 
 .tech-title {
-  font-size: 1.5rem;
+  font-size: 1.65rem;
+  font-weight: 700;
   color: var(--color-text-primary);
-  margin-bottom: 2rem;
+  margin: 0.5rem 0 0.8rem;
 }
 
+.tech-subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* Category Filter Tabs */
+.tech-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+}
+
+.tech-filter-btn {
+  padding: 0.45rem 1.15rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  backdrop-filter: blur(8px);
+}
+
+.tech-filter-btn:hover {
+  color: var(--color-text-primary);
+  border-color: rgba(184, 134, 11, 0.4);
+  transform: translateY(-1px);
+}
+
+.tech-filter-btn.active {
+  background: var(--color-accent-primary);
+  color: #fff;
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 4px 14px rgba(184, 134, 11, 0.28);
+}
+
+/* Tech Grid */
 .tech-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  max-width: 500px;
+  max-width: 1050px;
   margin: 0 auto;
 }
 
-.tech-item {
+.tech-card {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: var(--radius-md);
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius-lg);
+  text-align: left;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
 }
 
-.tech-item:hover {
-  border-color: var(--color-accent-primary);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(184, 134, 11, 0.12);
+.tech-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--tech-color, var(--color-accent-primary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tech-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(184, 134, 11, 0.5);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.tech-card:hover::before {
+  opacity: 1;
 }
 
 .tech-icon-wrapper {
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.03);
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
 }
 
-.tech-icon-wrapper img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+.tech-card:hover .tech-icon-wrapper {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.tech-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .tech-name {
-  font-size: 0.7rem;
-  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.tech-role {
+  font-size: 0.72rem;
   font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
 }
 
 /* Tablet and up */
@@ -149,26 +236,26 @@
   }
 
   .tech-title {
-    font-size: 1.75rem;
+    font-size: 2rem;
   }
 
   .tech-grid {
-    grid-template-columns: repeat(6, 1fr);
-    max-width: 700px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
   }
 
   .tech-icon-wrapper {
     width: 50px;
     height: 50px;
   }
-
-  .tech-name {
-    font-size: 0.75rem;
-  }
 }
 
 @media (min-width: 1024px) {
   .services-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }

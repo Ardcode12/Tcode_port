@@ -1,6 +1,12 @@
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { FiLayout, FiTrendingUp, FiTarget, FiPenTool, FiZap, FiBarChart2 } from 'react-icons/fi';
+import {
+  SiReact, SiNextdotjs, SiThreedotjs, SiJavascript, SiTailwindcss,
+  SiHtml5, SiCss3, SiNodedotjs, SiPython, SiDjango, SiFastapi,
+  SiMongodb, SiPostgresql, SiShopify, SiWordpress, SiGoogleads,
+  SiGooglesearchconsole, SiFigma
+} from 'react-icons/si';
 import GlassCard from '../ui/GlassCard';
 import '../../styles/components/Services.css';
 
@@ -37,24 +43,37 @@ const services = [
   },
 ];
 
+const categories = ['All', 'Frontend', 'Backend', 'CMS & Store', 'Marketing & SEO'];
+
 const technologies = [
-  { name: 'HTML5', icon: '/assets/html.png' },
-  { name: 'CSS3', icon: '/assets/css.png' },
-  { name: 'JavaScript', icon: '/assets/js.png' },
-  { name: 'React', icon: '/assets/react.png' },
-  { name: 'Node.js', icon: '/assets/node.png' },
-  { name: 'MongoDB', icon: '/assets/mongo.png' },
-  { name: 'Three.js', icon: 'https://cdn.simpleicons.org/threedotjs/FFFFFF' },
-  { name: 'React Native', icon: 'https://cdn.simpleicons.org/react/61DAFB' },
-  { name: 'Python', icon: 'https://cdn.simpleicons.org/python/3776AB' },
-  { name: 'Flask', icon: 'https://cdn.simpleicons.org/flask/000000' },
-  { name: 'Django', icon: 'https://cdn.simpleicons.org/django/092E20' },
-  { name: 'FastAPI', icon: 'https://cdn.simpleicons.org/fastapi/009688' },
+  { name: 'React', category: 'Frontend', role: 'Interactive UI', color: '#087ea4', Icon: SiReact },
+  { name: 'Next.js', category: 'Frontend', role: 'Fullstack & SEO', color: '#111111', Icon: SiNextdotjs },
+  { name: 'Three.js', category: 'Frontend', role: '3D Graphics', color: '#111111', Icon: SiThreedotjs },
+  { name: 'JavaScript', category: 'Frontend', role: 'Modern ES6+', color: '#F7DF1E', Icon: SiJavascript },
+  { name: 'Tailwind CSS', category: 'Frontend', role: 'Design Systems', color: '#06B6D4', Icon: SiTailwindcss },
+  { name: 'HTML5', category: 'Frontend', role: 'Semantic Web', color: '#E34F26', Icon: SiHtml5 },
+  { name: 'CSS3', category: 'Frontend', role: 'Modern Layouts', color: '#1572B6', Icon: SiCss3 },
+  { name: 'Node.js', category: 'Backend', role: 'Scalable Runtime', color: '#339933', Icon: SiNodedotjs },
+  { name: 'Python', category: 'Backend', role: 'Backend & AI', color: '#3776AB', Icon: SiPython },
+  { name: 'Django', category: 'Backend', role: 'Enterprise Web', color: '#092E20', Icon: SiDjango },
+  { name: 'FastAPI', category: 'Backend', role: 'High-speed APIs', color: '#009688', Icon: SiFastapi },
+  { name: 'MongoDB', category: 'Backend', role: 'Cloud NoSQL DB', color: '#47A248', Icon: SiMongodb },
+  { name: 'PostgreSQL', category: 'Backend', role: 'Relational DB', color: '#4169E1', Icon: SiPostgresql },
+  { name: 'Shopify', category: 'CMS & Store', role: 'E-Commerce Stores', color: '#7AB55C', Icon: SiShopify },
+  { name: 'WordPress', category: 'CMS & Store', role: 'CMS & Portals', color: '#21759B', Icon: SiWordpress },
+  { name: 'Google Ads', category: 'Marketing & SEO', role: 'PPC Campaigns', color: '#EA4335', Icon: SiGoogleads },
+  { name: 'Search Console', category: 'Marketing & SEO', role: 'Rankings & SEO', color: '#458CF5', Icon: SiGooglesearchconsole },
+  { name: 'Figma', category: 'Marketing & SEO', role: 'UI/UX Design', color: '#F24E1E', Icon: SiFigma },
 ];
 
 const Services = () => {
+  const [activeCategory, setActiveCategory] = useState('All');
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: '-50px' });
+
+  const filteredTechnologies = activeCategory === 'All'
+    ? technologies
+    : technologies.filter((tech) => tech.category === activeCategory);
 
   return (
     <section className="services-section" id="services" ref={containerRef}>
@@ -98,24 +117,54 @@ const Services = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <h3 className="tech-title">Technologies We Use</h3>
+          <div className="tech-header">
+            <span className="section-subtitle">Modern Stack</span>
+            <h3 className="tech-title">
+              Technologies That <span className="text-gradient">Power Your Growth</span>
+            </h3>
+            <p className="tech-subtitle">
+              We leverage enterprise-grade tools, modern frameworks, and proven technologies to build fast, scalable, and revenue-generating digital products.
+            </p>
+          </div>
 
-          <div className="tech-grid">
-            {technologies.map((tech, index) => (
-              <motion.div
-                key={index}
-                className="tech-item"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ delay: 0.4 + index * 0.08 }}
+          {/* Category Filter Tabs */}
+          <div className="tech-filters">
+            {categories.map((category) => (
+              <button
+                key={category}
+                className={`tech-filter-btn ${activeCategory === category ? 'active' : ''}`}
+                onClick={() => setActiveCategory(category)}
               >
-                <div className="tech-icon-wrapper">
-                  <img src={tech.icon} alt={tech.name} />
-                </div>
-                <span className="tech-name">{tech.name}</span>
-              </motion.div>
+                {category}
+              </button>
             ))}
           </div>
+
+          {/* Filtered Technology Grid */}
+          <motion.div layout className="tech-grid">
+            <AnimatePresence mode="popLayout">
+              {filteredTechnologies.map((tech) => (
+                <motion.div
+                  key={tech.name}
+                  layout
+                  initial={{ opacity: 0, scale: 0.85 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.85 }}
+                  transition={{ duration: 0.25 }}
+                  className="tech-card"
+                  style={{ '--tech-color': tech.color }}
+                >
+                  <div className="tech-icon-wrapper">
+                    <tech.Icon size={30} style={{ color: tech.color }} />
+                  </div>
+                  <div className="tech-info">
+                    <span className="tech-name">{tech.name}</span>
+                    <span className="tech-role">{tech.role}</span>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </motion.div>
       </div>
     </section>

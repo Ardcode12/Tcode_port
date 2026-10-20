@@ -27,17 +27,50 @@
   display: flex;
   flex-direction: column;
   padding: 2.5rem 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   min-height: 100%;
+  border: 1.5px solid rgba(0, 0, 0, 0.13);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .pricing-card:hover {
   transform: translateY(-8px);
+  border-color: rgba(184, 134, 11, 0.45);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
 }
 
+/* Popular Plan as Dark Component */
 .pricing-card.popular {
-  border: 2px solid var(--color-accent-primary);
-  box-shadow: 0 10px 40px rgba(184, 134, 11, 0.2);
+  background: linear-gradient(150deg, #101019 0%, #171726 50%, #12121f 100%) !important;
+  border: 2px solid #d4af37 !important;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.35), 0 0 30px rgba(212, 175, 55, 0.25);
+}
+
+.pricing-card.popular:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), 0 0 40px rgba(212, 175, 55, 0.35);
+  border-color: #f5f5dc !important;
+}
+
+.pricing-card.popular .plan-name {
+  color: #ffffff;
+}
+
+.pricing-card.popular .plan-description {
+  color: #b0b0bc;
+}
+
+.pricing-card.popular .pricing-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pricing-card.popular .period {
+  color: #a0a0ad;
+}
+
+.pricing-card.popular .feature-item {
+  color: #f0f0f8;
 }
 
 .popular-badge {
@@ -52,14 +85,14 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: #fff;
-  box-shadow: 0 4px 12px rgba(184, 134, 11, 0.35);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
 }
 
 .pricing-header {
   text-align: center;
   margin-bottom: 2rem;
   padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .plan-name {
@@ -148,18 +181,18 @@
 }
 
 .pricing-card .cta-btn.primary:hover {
-  box-shadow: 0 8px 25px rgba(184, 134, 11, 0.35);
+  box-shadow: 0 8px 25px rgba(184, 134, 11, 0.45);
   transform: translateY(-2px);
 }
 
 .pricing-card .cta-btn.secondary {
   background: rgba(0, 0, 0, 0.04);
   color: var(--color-text-primary);
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1.5px solid rgba(0, 0, 0, 0.15);
 }
 
 .pricing-card .cta-btn.secondary:hover {
-  background: rgba(184, 134, 11, 0.08);
+  background: rgba(184, 134, 11, 0.1);
   border-color: var(--color-accent-primary);
   color: var(--color-accent-primary);
 }

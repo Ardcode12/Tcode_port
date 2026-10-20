@@ -34,13 +34,13 @@
   max-width: 900px;
   margin: 0 auto;
   padding: 4rem 2rem;
-  background: rgba(255, 255, 255, 0.85);
+  background: linear-gradient(145deg, #0e0e18 0%, #171727 50%, #11111c 100%);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 24px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08),
-              0 0 30px rgba(184, 134, 11, 0.08);
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35),
+              0 0 45px rgba(184, 134, 11, 0.18);
 }
 
 .cta-badge {
@@ -52,7 +52,7 @@
   font-weight: 600;
   color: #fff;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3);
+  box-shadow: 0 4px 15px rgba(184, 134, 11, 0.35);
 }
 
 .cta-title {
@@ -60,13 +60,13 @@
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 1.5rem;
-  color: var(--color-text-primary);
+  color: #ffffff;
 }
 
 .cta-description {
   font-size: 1.2rem;
   line-height: 1.8;
-  color: var(--color-text-secondary);
+  color: #b8b8c5;
   margin-bottom: 3rem;
   max-width: 700px;
   margin-left: auto;
@@ -89,7 +89,7 @@
   justify-content: center;
   gap: 1rem;
   font-size: 1.1rem;
-  color: var(--color-text-primary);
+  color: #f0f0f8;
 }
 
 .feature-icon {
@@ -120,10 +120,10 @@
   align-items: center;
   gap: 0.6rem;
   padding: 1rem 2rem;
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
-  color: var(--color-text-primary);
+  color: #f5f5dc;
   font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
@@ -131,15 +131,16 @@
 }
 
 .cta-phone:hover {
-  background: rgba(184, 134, 11, 0.08);
-  border-color: var(--color-accent-primary);
-  color: var(--color-accent-primary);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  background: rgba(212, 175, 55, 0.16);
+  border-color: #d4af37;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+  transform: translateY(-2px);
 }
 
 .cta-trust {
   font-size: 0.95rem;
-  color: var(--color-text-muted);
+  color: #9e9ea8;
   display: flex;
   align-items: center;
   justify-content: center;
