@@ -18,7 +18,6 @@ import Pricing from './components/sections/Pricing';
 import WhyChooseUs from './components/sections/WhyChooseUs';
 import Projects from './components/sections/Projects';
 import CTA from './components/sections/CTA';
-import Contact from './components/sections/Contact';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -84,7 +83,7 @@ function App() {
               <WhyChooseUs />
               <Projects />
               <CTA />
-              <Contact />
+           
             </main>
 
             {/* Footer */}
@@ -100,7 +99,7 @@ function App() {
                     <h4>Get In Touch</h4>
                     <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <FiMail size={16} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} />
-                      <a href="mailto:tcode.webs00@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>tcode.webs00@gmail.com</a>
+                      <a href="mailto:twsdigitalsolutionsofficial@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>twsdigitalsolutionsofficial@gmail.com</a>
                     </p>
                     <p style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <FiPhone size={16} style={{ color: 'var(--color-accent-primary)', flexShrink: 0 }} />
@@ -116,8 +115,8 @@ function App() {
                     <h4>Quick Links</h4>
                     <a href="#services">Services</a>
                     <a href="#pricing">Pricing</a>
-                    <a href="#projects">Case Studies</a>
-                    <a href="#contact">Contact</a>
+                    <a href="#projects">Case Stories</a>
+                    <a href="#cta">Contact</a>
                   </div>
                 </div>
 

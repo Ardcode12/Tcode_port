@@ -93,8 +93,16 @@ export const MOBILE_LAPTOP_SETTINGS = {
   accentLightColor: '#d4af37',
 };
 
-// Preload the GLTF laptop model for instant rendering
-useGLTF.preload('/assets/asus_rog_flow_x16.glb');
+// =========================================================================
+// TOGGLE: SHOW OR HIDE 3D MODEL IN ABOUT SECTION
+// Set to false to hide/remove the 3D model, or true to enable it.
+// =========================================================================
+export const SHOW_3D_MODEL = false;
+
+// Preload the GLTF laptop model only when SHOW_3D_MODEL is active
+if (SHOW_3D_MODEL) {
+  useGLTF.preload('/assets/asus_rog_flow_x16.glb');
+}
 
 // 3D Model Loading Fallback
 const ModelLoader = () => (
@@ -326,7 +334,7 @@ const About = () => {
           </h2>
         </motion.div>
 
-        <div className="about-content">
+        <div className={`about-content ${!SHOW_3D_MODEL ? 'centered-layout' : ''}`}>
           {/* Info Section */}
           <motion.div
             className="about-info"
@@ -369,15 +377,17 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* 3D Laptop Showcase (Replaces previous code block) */}
-          <motion.div
-            className="about-visual"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <LaptopCanvas />
-          </motion.div>
+          {/* 3D Laptop Showcase (Rendered only when SHOW_3D_MODEL is true) */}
+          {SHOW_3D_MODEL && (
+            <motion.div
+              className="about-visual"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <LaptopCanvas />
+            </motion.div>
+          )}
         </div>
       </div>
     </section>

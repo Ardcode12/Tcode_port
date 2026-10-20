@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { FiCheck, FiArrowRight, FiPackage, FiZap, FiAward, FiStar } from 'react-icons/fi';
 import GlassCard from '../ui/GlassCard';
 import MagneticButton from '../ui/MagneticButton';
+import { scrollToSection as smoothScrollTo } from '../layout/SmoothScroll';
 import '../../styles/components/Pricing.css';
 
 const pricingPlans = [
@@ -66,13 +67,7 @@ const pricingPlans = [
 ];
 
 const scrollToSection = (id) => {
-  const element = document.getElementById(id);
-  if (element) {
-    const offset = 80;
-    const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - offset;
-    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-  }
+  smoothScrollTo(id, 80);
 };
 
 const Pricing = () => {
@@ -147,7 +142,7 @@ const Pricing = () => {
 
                 <MagneticButton
                   className={`cta-btn ${plan.popular ? 'primary' : 'secondary'}`}
-                  onClick={() => scrollToSection('contact')}
+                  onClick={() => scrollToSection('cta')}
                 >
                   <span>Get Started</span>
                   <FiArrowRight size={16} />

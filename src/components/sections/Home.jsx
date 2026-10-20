@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
 import MagneticButton from '../ui/MagneticButton';
+import { scrollToSection as smoothScrollTo } from '../layout/SmoothScroll';
 import '../../styles/components/Home.css';
 
 const TypeWriter = ({ words, speed = 100, deleteSpeed = 50, delay = 2000 }) => {
@@ -93,13 +94,7 @@ const Home = () => {
   const typingWords = ['Website Development', 'SEO & Google Ranking', 'Digital Marketing', 'Branding & Design'];
 
   const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-    }
+    smoothScrollTo(id, 80);
   };
 
   return (
@@ -161,7 +156,7 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.9 }}
         >
-          <MagneticButton onClick={() => scrollToSection('contact')}>
+          <MagneticButton onClick={() => scrollToSection('cta')}>
             <span>Get Free Consultation</span>
             <FiArrowRight size={18} />
           </MagneticButton>

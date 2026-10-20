@@ -9,8 +9,22 @@
 }
 
 html {
-  scroll-behavior: smooth;
   font-size: 16px;
+}
+
+/* Native smooth scroll fallback only when Lenis is not active */
+html:not(.lenis) {
+  scroll-behavior: smooth;
+}
+
+/* Lenis smooth scrolling harmonization */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
 body {

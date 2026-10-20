@@ -34,8 +34,8 @@ const Contact = () => {
     {
       icon: <FiMail size={22} />,
       label: 'Email',
-      value: 'tcode.webs00@gmail.com',
-      link: 'mailto:tcode.webs00@gmail.com',
+      value: 'twsdigitalsolutionsofficial@gmail.com',
+      link: 'mailto:twsdigitalsolutionsofficial@gmail.com',
     },
     {
       icon: <FiPhone size={22} />,

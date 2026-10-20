@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGLTF } from '@react-three/drei';
+import { SHOW_3D_MODEL } from '../sections/About';
 import './LoadingScreen.css';
 
-// Preload the 3D GLTF laptop model into memory
-useGLTF.preload('/assets/asus_rog_flow_x16.glb');
+// Preload the 3D GLTF laptop model into memory only if 3D model is active
+if (SHOW_3D_MODEL) {
+  useGLTF.preload('/assets/asus_rog_flow_x16.glb');
+}
 
 const LoadingScreen = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
@@ -25,75 +28,103 @@ const LoadingScreen = ({ onComplete }) => {
       img.src = src;
     });
 
-    // Track real download progress of the 3D GLB model
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/assets/asus_rog_flow_x16.glb', true);
-    xhr.responseType = 'blob';
+    if (SHOW_3D_MODEL) {
+      // Track real download progress of the 3D GLB model
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', '/assets/asus_rog_flow_x16.glb', true);
+      xhr.responseType = 'blob';
 
-    xhr.onprogress = (event) => {
-      if (!isMounted) return;
-      if (event.lengthComputable && event.total > 0) {
-        // Map 0 to 100% of download to 10% - 95% of progress bar
-        const modelPercent = 10 + Math.round((event.loaded / event.total) * 85);
-        setProgress((prev) => Math.max(prev, modelPercent));
-      }
-    };
+      xhr.onprogress = (event) => {
+        if (!isMounted) return;
+        if (event.lengthComputable && event.total > 0) {
+          const modelPercent = 10 + Math.round((event.loaded / event.total) * 85);
+          setProgress((prev) => Math.max(prev, modelPercent));
+        }
+      };
 
-    xhr.onload = () => {
-      if (!isMounted) return;
-      setProgress(100);
-      setTimeout(() => {
-        setIsComplete(true);
-        setTimeout(onComplete, 450);
-      }, 300);
-    };
-
-    xhr.onerror = () => {
-      // Graceful fallback if offline or error
-      if (!isMounted) return;
-      setProgress(100);
-      setTimeout(() => {
-        setIsComplete(true);
-        setTimeout(onComplete, 350);
-      }, 250);
-    };
-
-    // Incremental baseline progress so the bar is alive immediately
-    const baselineTimer = setInterval(() => {
-      if (!isMounted) return;
-      setProgress((prev) => {
-        if (prev < 20) return prev + 3;
-        return prev;
-      });
-    }, 80);
-
-    xhr.send();
-
-    // Safety fallback timeout to prevent hanging on slow connections
-    const fallbackTimeout = setTimeout(() => {
-      if (isMounted) {
+      xhr.onload = () => {
+        if (!isMounted) return;
         setProgress(100);
         setTimeout(() => {
           setIsComplete(true);
-          onComplete();
+          setTimeout(onComplete, 450);
         }, 300);
-      }
-    }, 12000);
+      };
 
-    return () => {
-      isMounted = false;
-      clearInterval(baselineTimer);
-      clearTimeout(fallbackTimeout);
-      xhr.abort();
-    };
+      xhr.onerror = () => {
+        if (!isMounted) return;
+        setProgress(100);
+        setTimeout(() => {
+          setIsComplete(true);
+          setTimeout(onComplete, 350);
+        }, 250);
+      };
+
+      const baselineTimer = setInterval(() => {
+        if (!isMounted) return;
+        setProgress((prev) => {
+          if (prev < 20) return prev + 3;
+          return prev;
+        });
+      }, 80);
+
+      const fallbackTimeout = setTimeout(() => {
+        if (isMounted) {
+          setProgress(100);
+          setTimeout(() => {
+            setIsComplete(true);
+            onComplete();
+          }, 300);
+        }
+      }, 12000);
+
+      xhr.send();
+
+      return () => {
+        isMounted = false;
+        clearInterval(baselineTimer);
+        clearTimeout(fallbackTimeout);
+        xhr.abort();
+      };
+    } else {
+      // Quick, smooth loading progression when 3D model is disabled
+      const stepInterval = setInterval(() => {
+        if (!isMounted) return;
+        setProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(stepInterval);
+            setTimeout(() => {
+              if (isMounted) {
+                setIsComplete(true);
+                setTimeout(onComplete, 350);
+              }
+            }, 250);
+            return 100;
+          }
+          return Math.min(100, prev + 14);
+        });
+      }, 70);
+
+      return () => {
+        isMounted = false;
+        clearInterval(stepInterval);
+      };
+    }
   }, [onComplete]);
 
   const getStatusText = (val) => {
-    if (val < 25) return 'Initializing digital experience...';
-    if (val < 70) return 'Loading 3D interactive model...';
-    if (val < 95) return 'Preparing 3D environment & shaders...';
-    if (val < 100) return 'Finalizing digital solutions...';
-    return 'Ready to grow your business';
+    if (SHOW_3D_MODEL) {
+      if (val < 25) return 'Initializing digital experience...';
+      if (val < 70) return 'Loading 3D interactive model...';
+      if (val < 95) return 'Preparing 3D environment & shaders...';
+      if (val < 100) return 'Finalizing digital solutions...';
+      return 'Ready to grow your business';
+    } else {
+      if (val < 40) return 'Initializing digital experience...';
+      if (val < 80) return 'Loading digital solutions...';
+      if (val < 100) return 'Preparing agency assets...';
+      return 'Ready to grow your business';
+    }
   };
 
   return (

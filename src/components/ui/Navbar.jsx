@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
+import { scrollToSection as smoothScrollTo } from '../layout/SmoothScroll';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -13,31 +14,42 @@ const Navbar = () => {
     { id: 'about', label: 'About' },
     { id: 'projects', label: 'Success Stories' },
     { id: 'pricing', label: 'Pricing' },
-    { id: 'contact', label: 'Contact' },
   ];
 
   useEffect(() => {
-    const sectionIds = ['home', 'about', 'projects', 'pricing', 'contact'];
+    const sectionIds = ['home', 'about', 'services', 'pricing', 'why-us', 'projects', 'cta'];
+    let ticking = false;
 
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset;
+      setIsScrolled(scrollY > 40);
 
-      const sections = sectionIds.map((id) => document.getElementById(id));
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
+      const scrollPosition = scrollY + window.innerHeight / 3;
 
-      sections.forEach((section) => {
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i];
+        const section = document.getElementById(id);
         if (section) {
           const sectionTop = section.offsetTop;
-          const sectionHeight = section.offsetHeight;
-
-          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            setActiveSection(section.id);
+          if (scrollPosition >= sectionTop - 100) {
+            setActiveSection(id);
+            break;
           }
         }
-      });
+      }
+      ticking = false;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    onScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -50,18 +62,8 @@ const Navbar = () => {
   }, [isMobileMenuOpen]);
 
   const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-      setIsMobileMenuOpen(false);
-    }
+    smoothScrollTo(id, 80);
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -109,11 +111,11 @@ const Navbar = () => {
 
           {/* Desktop CTA */}
           <a
-            href="#contact"
+            href="#cta"
             className="navbar-cta desktop-cta"
             onClick={(e) => {
               e.preventDefault();
-              scrollToSection('contact');
+              scrollToSection('cta');
             }}
           >
             Let's Talk
@@ -171,11 +173,11 @@ const Navbar = () => {
               </nav>
 
               <a
-                href="#contact"
+                href="#cta"
                 className="mobile-cta"
                 onClick={(e) => {
                   e.preventDefault();
-                  scrollToSection('contact');
+                  scrollToSection('cta');
                 }}
                 style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
               >

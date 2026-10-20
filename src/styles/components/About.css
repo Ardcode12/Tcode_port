@@ -11,6 +11,18 @@
   gap: 2rem;
 }
 
+/* Centered layout when 3D laptop model is hidden/disabled */
+.about-content.centered-layout {
+  flex-direction: column !important;
+  max-width: 920px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.about-content.centered-layout .about-info {
+  width: 100%;
+}
+
 /* Info Section */
 .about-info {
   display: flex;

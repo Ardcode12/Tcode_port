@@ -4,16 +4,6 @@ import { FiClock, FiArrowRight, FiPhoneCall, FiShield } from 'react-icons/fi';
 import MagneticButton from '../ui/MagneticButton';
 import '../../styles/components/CTA.css';
 
-const scrollToSection = (id) => {
-  const element = document.getElementById(id);
-  if (element) {
-    const offset = 80;
-    const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - offset;
-    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-  }
-};
-
 const CTA = () => {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, margin: '-50px' });
@@ -67,7 +57,7 @@ const CTA = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <MagneticButton onClick={() => scrollToSection('contact')}>
+            <MagneticButton onClick={() => window.location.href = 'mailto:twsdigitalsolutionsofficial@gmail.com'}>
               <span>Book Free Call Now</span>
               <FiArrowRight size={20} />
             </MagneticButton>
