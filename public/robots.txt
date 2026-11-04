@@ -2,4 +2,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://www.tcode.co.in/sitemap.xml
+Sitemap: https://twsdigitalsolutions.site/sitemap.xml

@@ -162,7 +162,7 @@ const LoadingScreen = ({ onComplete }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h1 className="loading-brand-title">TWS Digital Solutions</h1>
+              <p className="loading-brand-title">TWS Digital Solutions</p>
               <span className="loading-brand-tagline">Toward The Success</span>
             </motion.div>
 
